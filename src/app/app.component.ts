@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-tour-of-heroes';
+  a = 'test';
+
+  constructor() {
+    const test = 'test';
+    console.log('secretKey');
+  }
 }
