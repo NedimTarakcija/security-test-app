@@ -10,34 +10,34 @@ jobs:
     strategy:
       matrix:
         node-version: [latest]
-    
+
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: "npm"
       - run: npm install
-      - run: npm run build 
+      - run: npm run build
 
   test:
     name: OWASP ZAP SCANS
     runs-on: ubuntu-latest
 
     steps:
-       - uses: actions/checkout@v2
-         with:
+      - uses: actions/checkout@v2
+        with:
           ref: main
-       - name: Building Docker Node-Goat Image
-         run: docker-compose build
-       - name: Launching the app
-         run: docker-compose up --detach
+      - name: Building Docker Node-Goat Image
+        run: docker-compose build
+      - name: Launching the app
+        run: docker-compose up --detach
 
-       - name: OWASP ZAP
-         uses: zaproxy/action-baseline@v0.4.0
-         with:
-           target: "https://staging-unilever.holisticai.io/"
-           fail_action: false
-           token: $
-           issue_title: Security Tests
+      - name: OWASP ZAP
+        uses: zaproxy/action-baseline@v0.7.0
+        with:
+          target: "https://staging-unilever.holisticai.io/"
+          fail_action: false
+          token: ${{ github.token }}
+          issue_title: Security Tests
