@@ -1,9 +1,13 @@
+version: '3.7'
 services:
-  web:
-    build:
-      context: angular
-      target: builder
+  app:
+    build: .
+    command: sh -c "npm start"
     ports:
-      - 4000:4000
+      - 4200:4200
+    working_dir: /home/node/app
     volumes:
-      - /project/node_modules
+      - ./:/home/node/app
+      - node_modules:/home/node/app/node_modules
+volumes:
+  node_modules:
