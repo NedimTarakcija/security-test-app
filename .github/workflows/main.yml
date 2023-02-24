@@ -4,6 +4,7 @@ permissions: write-all
 
 jobs:
   build:
+    name: BUILD
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -35,16 +36,23 @@ jobs:
       - name: Launching the app
         run: docker-compose up --detach
 
-      - name: OWASP ZAP BASELINE
+      - name: OWASP ZAP basline
         uses: zaproxy/action-baseline@v0.7.0
         with:
           target: "https://staging-unilever.holisticai.io/"
           fail_action: false
           issue_title: OWASP Baseline Scan Issues
 
-      - name: OWASP ZAP API
+      - name: OWASP ZAP API scan
         uses: zaproxy/action-api-scan@v0.2.0
         with:
           target: "https://staging-unilever.holisticai.io/"
           fail_action: false
           issue_title: OWASP API Scan Issues
+
+      - name: OWASP ZAP Full Scan
+        uses: zaproxy/action-full-scan@v0.4.0
+        with:
+          target: "https://staging-unilever.holisticai.io/"
+          fail_action: false
+          issue_title: OWASP Full Scan Issues
