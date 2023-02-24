@@ -6,4 +6,4 @@ RUN npm run build
 
 FROM nginx:latest
 COPY --from=build /usr/local/app/dist/security-test-app /usr/share/nginx/html
-EXPOSE 4000
+EXPOSE 4200
