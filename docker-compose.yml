@@ -1,7 +1,7 @@
 services:
   web:
     build:
-      context: angular
+      context:
       target: builder
     ports:
       - 4000:4000
