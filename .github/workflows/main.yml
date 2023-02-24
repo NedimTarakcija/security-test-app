@@ -39,5 +39,4 @@ jobs:
         with:
           target: "https://staging-unilever.holisticai.io/"
           fail_action: false
-          token: ${{ github.token }}
           issue_title: Security Tests
