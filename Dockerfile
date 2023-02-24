@@ -5,5 +5,5 @@ RUN npm install
 RUN npm run build
 
 FROM nginx:latest
-COPY --from=build /usr/local/app/dist/angular-tour-of-heroes /usr/share/nginx/html
+COPY --from=build /usr/local/app/dist/security-test-app /usr/share/nginx/html
 EXPOSE 4000
