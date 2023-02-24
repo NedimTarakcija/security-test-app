@@ -11,6 +11,6 @@ export class AppComponent {
 
   constructor() {
     const test = 'test';
-    console.log('secretKeyy');
+    console.log('secretKey');
   }
 }
