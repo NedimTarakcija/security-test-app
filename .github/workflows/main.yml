@@ -28,7 +28,7 @@ jobs:
     steps:
        - uses: actions/checkout@v3
          with:
-          ref: master
+          ref: main
        - name: Building Docker Node-Goat Image
          run: docker-compose build
        - name: Launching the app
