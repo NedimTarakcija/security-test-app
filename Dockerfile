@@ -10,7 +10,7 @@
 # EXPOSE 4200
 
 
-FROM node:19.6.1-bullseye-slim
+FROM node:19.7-bullseye-slim
 RUN mkdir /home/node/app && chown node:node /home/node/app
 RUN mkdir /home/node/app/node_modules && chown node:node /home/node/app/node_modules
 WORKDIR  /home/node/app
