@@ -1,0 +1,61 @@
+name: Security Checks
+on:
+  workflow_dispatch:
+permissions: write-all
+
+jobs:
+  # build:
+  #   name: BUILD
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: ./
+  #   strategy:
+  #     matrix:
+  #       node-version: [latest]
+
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Use Node.js ${{ matrix.node-version }}
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: ${{ matrix.node-version }}
+  #         cache: "npm"
+  #     - run: npm install
+  #     - run: npm run build
+
+  owasp-zap:
+    name: OWASP ZAP SCANS
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: main
+      - name: Building Docker image
+        run: docker-compose build
+      - name: Launching the app
+        run: docker-compose up --detach
+
+      - name: OWASP ZAP baseline
+        uses: zaproxy/action-baseline@v0.7.0
+        with:
+          #target: "https://staging-unilever.holisticai.io/"
+          target: "http://localhost:4200/"
+          fail_action: false
+          issue_title: OWASP ZAP Baseline Scan Issues
+
+      - name: OWASP ZAP API scan
+        uses: zaproxy/action-api-scan@v0.2.0
+        with:
+          #target: "https://staging-unilever.holisticai.io/"
+          target: "http://localhost:4200/"
+          fail_action: false
+          issue_title: OWASP ZAP API Scan Issues
+
+      # - name: OWASP ZAP Full Scan
+      #   uses: zaproxy/action-full-scan@v0.4.0
+      #   with:
+      #     target: "https://staging-unilever.holisticai.io/"
+      #     fail_action: false
+      #     issue_title: OWASP ZAP Full Scan Issues
